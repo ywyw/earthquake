@@ -1,8 +1,0 @@
-CREATE EXTERNAL TABLE hive_test ( field1 string, field2 string, field3 string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key, a:id, b:mag") TBLPROPERTIES ("hbase.table.name" = "hbase_test");
-
-INSERT OVERWRITE TABLE hive_test select url,id,mag from eqsfromjson;
-
-CREATE EXTERNAL TABLE hive_test2 ( field1 bigint, field2 string, field3 float,field4 float,field5 float,field6 float,field7 string, field8 float, field9 float, field10 float,field11 int, field12 string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key, a:id,b:mag,c:sunrisediff,c:sunsetdiff,c:moonphase,d:place,d:lat,d:long,d:depth,e:tsunami,f:type") TBLPROPERTIES ("hbase.table.name" = "hbase_test2"); 
-
-INSERT OVERWRITE TABLE hive_test2 select time,id,mag,sunrisediff,sunsetdiff,moonphase,place,lat,long,depth,tsunami,type from eqsfromjson2;
-
