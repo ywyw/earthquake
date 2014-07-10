@@ -1,0 +1,6 @@
+hadoop jar /opt/cloudera/parcels/CDH/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming.jar -file fillgrid.py -mapper fillgrid.py -file identityreducer.py -reducer identityreducer.py -input ephemtsv -output grids -file GSRM_gridded_strain_v2.1.txt -file GSRM_average_strain_v2.1.txt
+
+hadoop jar /opt/cloudera/parcels/CDH/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming.jar -file jsontotsv.py -mapper jsontotsv.py -file identityreducer.py -reducer identityreducer.py -input datajson -output json2tsv
+
+hadoop jar /opt/cloudera/parcels/CDH/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming.jar -file sstimes.py -mapper sstimes.py -file identityreducer.py -reducer identityreducer.py -input json2tsv -output ephemtsv
+

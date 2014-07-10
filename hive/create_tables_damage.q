@@ -49,5 +49,5 @@ tothousessdamageddesc int
 )
 row format delimited
 fields terminated by '\t'
-location '/user/ubuntu/damage';
+location '/user/ec2-user/yuhong/damage';
 

@@ -1,0 +1,12 @@
+hive shell
+INSERT OVERWRITE TABLE eqsgrid2 select *,concat_ws('_',coalesce(mag,"null"),lpad(time+2208988800000,13,'0')) from eqsgrid;
+
+hbase shell
+create 'hbase_eqsgrid2',{NAME => 'a'}
+
+hive shell
+CREATE EXTERNAL TABLE hive_eqsgrid2 (field1 string,field2 string, field3 float,field4 float,field5 float,field6 float,field7 float,field8 float,field9 string, field10 float, field11 float, field12 float,field13 int, field14 string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,a:datestr,a:mag,a:sunrisediff,a:sunsetdiff,a:moonphase,a:strainmag,a:vor,a:place,a:lat,a:long,a:depth,a:tsunami,a:type") TBLPROPERTIES ("hbase.table.name" = "hbase_eqsgrid2");
+
+hive shell
+INSERT OVERWRITE TABLE hive_eqsgrid2 select index,datestr,mag,sunrisediff,sunsetdiff,moonphase,strainmag,vor,place,lat,long,depth,tsunami,type from eqsgrid2;
+

@@ -1,0 +1,2 @@
+0 * * * * curl -o hourly/hourly.json "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"
+0 * * * * hdfs dfs -put hourly/hourly.json hourly/hourly.$(date +%m_%d_%H_%M).json
