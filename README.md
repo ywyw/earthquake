@@ -35,6 +35,7 @@ Additional configs:
 
 Pipeline Summary
 ===========
+![pipelineimage](https://cloud.githubusercontent.com/assets/7133238/3548829/61544364-08b9-11e4-8a65-329cc85ab714.png)
 
 Pipeline Details and Scripts
 ===========
