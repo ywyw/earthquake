@@ -40,22 +40,31 @@ Pipeline Details and Scripts
 ===========
 Batch layer:
 * The get*.sh scripts send curl requests to pull in the data to hdfs, providing feedback on success.
+
 Real-time layer:
 * Insert cron.txt into crontab for hourly USGS updates and save the data to hdfs, where it can be incrementally added.
+
 JSON to TSV:
 * In Hadoop Streaming, jsontotsv.py converts the geojson into a tab delimited file and trims off metadata
+
 TSV calculate astronomical information:
 * In Hadoop Streaming, sstimes.py finds sunrise/sunset/moon data for each earthquake.
+
 Add gridded crust deformation data:
 * Python library lookup of each earthquake to nearest cell.
+
 Create Hive Tables:
 * create_table_eqsgrid.q creates the full fledged tsv table and create_table_damages.q creates a table of the damage data.
+
 Hive queries:
 * hivequeries.hql lists a few questions that are relevant to investigate.
+
 HBase Schema design:
-*The key is magnitude_timestamp, however since unixtime begins in 1970 and HBase does not elegantly handle negative values, Jan 1 1900 is set to 0 and all values are left zero padded to 13 digits.  If magnitude is null, concatenate the string "null" with the timestamp.
+* The key is magnitude_timestamp, however since unixtime begins in 1970 and HBase does not elegantly handle negative values, Jan 1 1900 is set to 0 and all values are left zero padded to 13 digits.  If magnitude is null, concatenate the string "null" with the timestamp.
+
 Hive to HBase direct import:
 * hivetohbase describes how to accomplish the import
+
 Flask + Happybase REST API:
 * realindex.html is the index of the website, each figure is rendered dynamically from tsv, time range and magnitude search gracefully handle null values as well as "null" values
 
