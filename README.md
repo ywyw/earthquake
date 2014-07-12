@@ -2,6 +2,8 @@ GISt - Making sense of earthquake data and models
 ==========
 This project was completed in the span of 3 weeks for the Insight Data Engineering program.
 
+The motivation stems from trying to understand earthquake patterns for predictive purposes.  The project builds a model based on earthquake history, strain gauge data, damage data, and astronomical phenomena such as moon phase and sunrise/sunset times.
+
 Cluster settings used
 ==========
 Amazon EC2 shared cluster with 7 m1.xlarge machines with cloudera v5, hadoop2.0
