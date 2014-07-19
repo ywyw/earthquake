@@ -6,6 +6,7 @@ import json
 import StringIO
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
+from matplotlib import pyplot as plt
 import csv
 import pprint
 import ast
@@ -64,53 +65,54 @@ def get_tasks2():
 
 @app.route('/earthquake/mag.png')
 def plotmag():
-    return plot('numbymag.tsv','Number of earthquakes per magnitude')
+    return plot('numbymag.tsv','Number of earthquakes per magnitude','magnitude (Richter)','count')
 
 @app.route('/earthquake/numbyyear.png')
 def numbyyear():
-    return plot('numbyyear.tsv','Number of earthquakes per year')
+    return plot('numbyyear.tsv','Number of earthquakes per year','year','count')
 
 @app.route('/earthquake/magbyyear.png')
 def magbyyear():
-    return plot('magbyyear.tsv','Avg magnitude per year')
+    return plot('magbyyear.tsv','Avg magnitude per year','year','magnitude (Richter)')
 
 @app.route('/earthquake/vorticity.png')
 def vorticity():
-    return plot('vorticity.tsv','Average abs vorticity per magnitude')
+    return plot('vorticity.tsv','Average abs vorticity per magnitude','magnitude (Richter)','vorticity (1/s)')
 
 @app.route('/earthquake/strainmag.png')
 def strainmag():
-    return plot('strainmag.tsv','Average abs strain mag per magnitude')
+    return plot('strainmag.tsv','Average abs strain mag per magnitude','magnitude (Richter)','strain (1/s)')
 
 @app.route('/earthquake/sunrise.png')
 def sunrise():
-    return plot('sunrisefl.tsv','Earthquakes per fraction of day from sunrise')
+    return plot('sunrisefl.tsv','Earthquakes per fraction of day from sunrise','difference of next sunrise with time','count')
 
 @app.route('/earthquake/sunset.png')
 def sunset():
-    return plot('sunsetfl.tsv','Earthquakes per fraction of day from sunset')
+    return plot('sunsetfl.tsv','Earthquakes per fraction of day from sunset','difference of next sunset with time','count')
 
 @app.route('/earthquake/moonphase.png')
 def moonphase():
-    return plot('moonphasefl.tsv','Earthquakes per fraction of moon illumination')
+    return plot('moonphasefl.tsv','Earthquakes per fraction of moon illumination','percent of moon illuminated','count')
 
 @app.route('/earthquake/damagecost.png')
 def damagecost():
-    return plot('totdambyyear.tsv','Average earthquake damage (mil) per year')
+    return plot('totdambyyear.tsv','Average earthquake damage (mil) per year','year','damage (millions of $)')
 
 @app.route('/earthquake/deaths.png')
 def deaths():
-    return plot('totdeathbyyear.tsv','Average earthquake deaths per year')
+    return plot('totdeathbyyear.tsv','Average earthquake deaths per year','year','number of deaths')
 
 # dynamically rendered plots that read off tsv files and returns a png response
-def plot(filename,plottitle):
-    fig = Figure()
-    axis = fig.add_subplot(1, 1, 1)
+def plot(filename,plottitle,xlab,ylab):
     with open(filename) as tsv:
         data = [(float(x), float(y)) for x, y in csv.reader(tsv, delimiter = '\t')]
         xs, ys = zip(*data)
-    axis.plot(xs, ys) 
+    fig = plt.figure()
     fig.suptitle(plottitle, fontsize=20)
+    plt.plot(xs,ys)
+    plt.xlabel(xlab,fontsize=16)
+    plt.ylabel(ylab,fontsize=16)
     canvas = FigureCanvas(fig)
     output = StringIO.StringIO()
     canvas.print_png(output)
