@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
         <head>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/zen.css') }}">
                       <title>GISt: Making sense of earthquake data and models</title>
                             </head>
  <body>
-     <h1>Investigate earthquakes!</h1>
+     <h2>&nbsp;&nbsp;Investigate earthquakes!</h2>
 <ul>
+    <h3>Graphs of findings:</h3>
     <li><a href="/earthquake/mag.png">Number of earthquakes per magnitude</a></li>
     <li><a href="/earthquake/numbyyear.png">Number of earthquakes per year</a></li>
     <li><a href="/earthquake/magbyyear.png">Avg magnitude per year</a></li>
@@ -19,7 +21,9 @@
    
     <li><a href="/earthquake/deaths.png">Average earthquake deaths per year</a></li>
     <li><a href="/earthquake/damagecost.png">Average earthquake damage(mil) per year</a></li>
-   
+</ul>
+<ul>
+    <h3>Query for specific earthquake events:</h3>
     <li><a href="/earthquake/api2">GISt earthquake API</a></li>
 </ul>
 </body>
